@@ -3,7 +3,7 @@ import "./App.css";
 
 function App() {
   return (
-    <div>
+    <div className="container p-5">
       <h1>Mern Stack!!!!</h1>
     </div>
   );
