@@ -15,7 +15,26 @@ function Create() {
   //onchange event handler
   const handleChange = name => event => {
     //console.log("name", name, "event", event.target.value);
-    setState({ ...state, [name]: event.target.vlaue });
+    setState({ ...state, [name]: event.target.value });
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    // console.table({ title, user, content });
+    axios
+      .post(`http://locahost:3000/api/post`, { title, user, content })
+      .then(response => {
+        console.log(response);
+        // empty state
+        setState({ ...state, title: "", user: "", content: "" });
+
+        // show sucess alert
+        alert(`Post titled ${response.data.title} is created`);
+      })
+      .catch(error => {
+        console.log(error.response);
+        alert(error.response.data.error);
+      });
   };
 
   return (
@@ -23,7 +42,7 @@ function Create() {
       <h1>Creat POST</h1>
       <br />
       {/* {JSON.stringify(state)} */}
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label className="text-muted">Title</label>
           <input
