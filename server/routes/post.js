@@ -2,8 +2,11 @@ var express = require("express");
 var router = express.Router();
 
 /* import controller method */
-const { create } = require("../controllers/post");
+const { create, list, read } = require("../controllers/post");
 
 router.post("/post", create);
+//get all posts
+router.get("/posts", list);
+router.get("/post/:slug", read);
 
 module.exports = router;

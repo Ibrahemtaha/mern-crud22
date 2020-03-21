@@ -24,10 +24,46 @@ exports.create = function(req, res) {
 
   //Create post
   Post.create({ title, user, content }, (err, post) => {
+    console.log(123);
     if (err) {
       console.log(err);
       res.status(400).json({ error: "Duplicate post, Try another title" });
     }
     res.json(post);
   });
+};
+
+// list all posts
+// exports.list = async (req, res) => {
+//   const posts = await Post.findAll();
+//   res.json(posts);
+//   console.log(posts);
+// };
+
+exports.list = (req, res) => {
+  Post.findAll({
+    limit: 10,
+    order: [["createdAt", "DESC"]]
+  })
+    .then(posts => {
+      res.json(posts);
+      console.log(posts);
+    })
+    .catch(err => console.log(err));
+};
+
+// one post
+exports.read = (req, res) => {
+  const { slug } = req.params;
+
+  Post.findAll({
+    where: {
+      post_id: slug
+    }
+  })
+    .then(post => {
+      res.json(post);
+      console.log(post);
+    })
+    .catch(err => console.log(err));
 };

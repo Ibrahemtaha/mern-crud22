@@ -23,7 +23,7 @@ function Create() {
     event.preventDefault();
     // console.table({ title, user, content });
     axios
-      .post(`http://locahost:3000/api/post`, { title, user, content })
+      .post(`http://localhost:3000/api/post`, { title, user, content })
       .then(response => {
         console.log(response);
         // empty state
@@ -33,8 +33,8 @@ function Create() {
         alert(`Post titled ${response.data.title} is created`);
       })
       .catch(error => {
-        console.log(error.response);
-        alert(error.response.data.error);
+        console.log(error);
+        alert(error.response);
       });
   };
 
