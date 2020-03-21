@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./App.css";
 import axios from "axios";
+import Nav from "./Nav";
 
 function Create() {
   //state
@@ -38,7 +39,9 @@ function Create() {
   };
 
   return (
-    <div className="container p-5">
+    <div className="container py-5">
+      <Nav />
+      <br />
       <h1>Creat POST</h1>
       <br />
       {/* {JSON.stringify(state)} */}
