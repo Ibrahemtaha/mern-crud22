@@ -38,6 +38,33 @@ function Create() {
       });
   };
 
+  //onchange event handler
+  const handleChange = name => event => {
+    //console.log("name", name, "event", event.target.value);
+    setState({ ...state, [name]: event.target.value });
+  };
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    // console.table({ title, user, content });
+    axios
+      .put(`http://localhost:3000/api/post/${slug}`, { title, user, content })
+      .then(response => {
+        console.log(response);
+        const { title, user, content } = response.data;
+
+        // empty state
+        setState({ ...state, title, user, content });
+
+        // show sucess alert
+        alert(`Post titled ${title} is updated`);
+      })
+      .catch(error => {
+        console.log(error);
+        alert(error.response);
+      });
+  };
+
   return (
     <div className="container py-5">
       <Nav />

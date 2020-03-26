@@ -67,3 +67,37 @@ exports.read = (req, res) => {
     })
     .catch(err => console.log(err));
 };
+
+// Update
+exports.update = (req, res) => {
+  const { slug } = req.params;
+  const { title, user, content } = req.body;
+
+  Post.update({
+    where: {
+      post_id: slug
+    },
+    returning: true
+  })
+    .then(post => {
+      res.json(post);
+      console.log(post);
+    })
+    .catch(err => console.log(err));
+};
+
+// Delete \ Remove
+exports.remove = (req, res) => {
+  const { slug } = req.params;
+
+  Post.findAll({
+    where: {
+      post_id: slug
+    }
+  })
+    .then(post => {
+      res.json(post);
+      console.log(post);
+    })
+    .catch(err => console.log(err));
+};
