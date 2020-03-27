@@ -9,9 +9,7 @@ sequelize.sync();
 exports.create = function(req, res) {
   //console.log(req.body);
   //res.json({ hello: "hello" });
-
   const { title, user, content } = req.body;
-
   //Validation
   if (!title || !user || !content) {
     return res.status(400).json({
@@ -21,7 +19,6 @@ exports.create = function(req, res) {
   res.json({
     message: "See your server console"
   });
-
   //Create post
   Post.create({ title, user, content }, (err, post) => {
     console.log(123);
@@ -69,7 +66,7 @@ exports.read = (req, res) => {
 };
 
 // Update
-exports.update = (req, res) => {
+exports.put = (req, res) => {
   const { slug } = req.params;
   const { title, user, content } = req.body;
 

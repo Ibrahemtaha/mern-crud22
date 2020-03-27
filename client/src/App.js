@@ -35,7 +35,7 @@ const App = () => {
   const deletePost = slug => {
     // console.log('delete', slug, ' post');
     axios
-      .delete(`${process.env.REACT_APP_API}/post/${slug}`, {
+      .delete(`http://localhost:3000/api/post/${slug}`, {
         headers: {
           authorization: `Bearer ${getToken()}`
         }
