@@ -51,11 +51,11 @@ exports.list = (req, res) => {
 
 // one post
 exports.read = (req, res) => {
-  const { slug } = req.params;
+  const { id } = req.params;
 
-  Post.findAll({
+  Post.findOne({
     where: {
-      post_id: slug
+      post_id: id
     }
   })
     .then(post => {
@@ -66,16 +66,19 @@ exports.read = (req, res) => {
 };
 
 // Update
-exports.put = (req, res) => {
-  const { slug } = req.params;
+exports.update = (req, res) => {
+  const { id } = req.params;
   const { title, user, content } = req.body;
 
-  Post.update({
-    where: {
-      post_id: slug
-    },
-    returning: true
-  })
+  Post.update(
+    { title, user, content },
+    {
+      where: {
+        post_id: id
+      },
+      returning: true
+    }
+  )
     .then(post => {
       res.json(post);
       console.log(post);
@@ -85,11 +88,11 @@ exports.put = (req, res) => {
 
 // Delete \ Remove
 exports.remove = (req, res) => {
-  const { slug } = req.params;
+  const { id } = req.params;
 
-  Post.findAll({
+  Post.destroy({
     where: {
-      post_id: slug
+      post_id: id
     }
   })
     .then(post => {

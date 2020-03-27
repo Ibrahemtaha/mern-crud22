@@ -25,26 +25,27 @@ const App = () => {
   }, []);
 
   /// Delete
-  const deleteConfirm = slug => {
+  const deleteConfirm = id => {
     let answer = window.confirm("Are you sure you want to delete this post?");
     if (answer) {
-      deletePost(slug);
+      deletePost(id);
     }
   };
 
-  const deletePost = slug => {
-    // console.log('delete', slug, ' post');
+  const deletePost = id => {
+    // console.log('delete', id, ' post');
     axios
-      .delete(`http://localhost:3000/api/post/${slug}`, {
-        headers: {
-          authorization: `Bearer ${getToken()}`
-        }
+      .delete(`http://localhost:3000/api/post/${id}`, {
+        // headers: {
+        //   authorization: `Bearer ${getToken()}`
+        // }
       })
       .then(response => {
-        alert(response.data.message);
+        //alert(response.data.message);
+        console.log(response.data);
         fetchPosts();
       })
-      .catch(error => alert("Error deleting post"));
+      .catch(error => alert(`Error deleting ${error} post`));
   };
 
   return (
@@ -78,13 +79,13 @@ const App = () => {
               </div>
               <div className="col-md-2">
                 <Link
-                  to={`/post/update/${post.slug}`}
+                  to={`/post/update/${post.post_id}`}
                   className="btn btn-sm btn-outline-warning"
                 >
                   Update
                 </Link>
                 <button
-                  onClick={() => deleteConfirm(post.slug)}
+                  onClick={() => deleteConfirm(post.post_id)}
                   className="btn btn-sm btn-outline-danger ml-1"
                 >
                   Delete

@@ -8,9 +8,10 @@ router.post("/post", create);
 //get all posts
 router.get("/posts", list);
 // Get one post
-router.get("/post/:slug", read);
+router.get("/post/:id", read);
 // Update
-router.put("/post/:slug", update);
+router.put("/post/:id", update);
 // Delete
-router.delete("/post/:slug", remove);
+router.delete("/post/:id", remove);
+
 module.exports = router;

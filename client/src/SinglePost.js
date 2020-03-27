@@ -7,7 +7,7 @@ const SinglePost = props => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/api/post/${props.match.params.slug}`)
+      .get(`http://localhost:3000/api/post/${props.match.params.id}`)
       .then(response => setPost(response.data))
       .catch(error => alert(`Error loading signle post ${error}`));
   }, []);

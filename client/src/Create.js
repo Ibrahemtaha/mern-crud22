@@ -3,7 +3,7 @@ import "./App.css";
 import axios from "axios";
 import Nav from "./Nav";
 
-function Create() {
+function Create({ history }) {
   //state
   const [state, setState] = useState({
     title: "",
@@ -30,34 +30,8 @@ function Create() {
         setState({ ...state, title: "", user: "", content: "" });
 
         // show sucess alert
-        alert(`Post titled ${response.data.title} is created`);
-      })
-      .catch(error => {
-        console.log(error);
-        alert(error.response);
-      });
-  };
-
-  //onchange event handler
-  const handleChange = name => event => {
-    //console.log("name", name, "event", event.target.value);
-    setState({ ...state, [name]: event.target.value });
-  };
-
-  const handleSubmit = event => {
-    event.preventDefault();
-    // console.table({ title, user, content });
-    axios
-      .put(`http://localhost:3000/api/post/${slug}`, { title, user, content })
-      .then(response => {
-        console.log(response);
-        const { title, user, content } = response.data;
-
-        // empty state
-        setState({ ...state, title, user, content });
-
-        // show sucess alert
-        alert(`Post titled ${title} is updated`);
+        //alert(`Post titled ${response.data.title} is created`);
+        history.push("/");
       })
       .catch(error => {
         console.log(error);
@@ -88,6 +62,7 @@ function Create() {
           <label className="text-muted">User</label>
           <input
             onChange={handleChange("user")}
+            value={user}
             type="text"
             className="form-control"
             placeholder="User name"
@@ -98,6 +73,7 @@ function Create() {
           <label className="text-muted">Content</label>
           <textarea
             onChange={handleChange("content")}
+            value={content}
             type="text"
             className="form-control"
             placeholder="Post Content"

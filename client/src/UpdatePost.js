@@ -6,21 +6,35 @@ const UpdatePost = props => {
   const [state, setState] = useState({
     title: "",
     user: "",
-    content: "",
-    slug: ""
+    content: ""
+    // id: ""
   });
   // NOTE: I didn't add "slug" as in useSate as in the video
 
   const { title, user, content } = state;
 
   useEffect(() => {
+    // we need to fetch the old value
+    console.log(props);
+
+    console.log(props.match.params.id);
     axios
-      .put(`http://localhost:3000/api/post/${props.match.params.slug}`)
+      .get(`http://localhost:3000/api/post/${props.match.params.id}`)
+
+      //.then(response => setPost(response.data[0])) // use it when we use findAll() in server side.
       .then(response => {
-        const { title, user, content } = response.data;
-        setState({ ...state, title, user, content });
-      })
+        console.log(response.data);
+        setState(response.data);
+      }) // this is f
       .catch(error => alert(`Error loading signle post ${error}`));
+
+    // axios
+    //     .put(`http://localhost:3000/api/post/${props.match.params.id}`)
+    //     .then(response => {
+    //         const {title, user, content} = response.data;
+    //         setState({...state, title, user, content});
+    //     })
+    //     .catch(error => alert(`Error loading signle post ${error}`));
   }, []);
   // return <div>{JSON.stringify(props)}</div>;
 
@@ -32,9 +46,11 @@ const UpdatePost = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // console.table({ title, content, user });
+
+    // we can keep the id in state and we can get it from the props.match.params.id
+
     axios
-      .put(`${process.env.REACT_APP_API}/post/${slug}`, {
+      .put(`http://localhost:3000/api/post/${props.match.params.id}`, {
         title,
         content,
         user
@@ -45,7 +61,8 @@ const UpdatePost = props => {
         // empty state
         setState({ ...state, title, user, content });
         // show sucess alert
-        alert(`Post titled ${title} is updated`);
+        //alert(`Post titled ${title} is updated`);
+        props.history.push("/");
       })
       .catch(error => {
         console.log(error.response);
@@ -70,6 +87,7 @@ const UpdatePost = props => {
       <div className="form-group">
         <label className="text-muted">User</label>
         <input
+          value={user}
           onChange={handleChange("user")}
           type="text"
           className="form-control"
@@ -80,6 +98,7 @@ const UpdatePost = props => {
       <div className="form-group">
         <label className="text-muted">Content</label>
         <textarea
+          value={content}
           onChange={handleChange("content")}
           type="text"
           className="form-control"

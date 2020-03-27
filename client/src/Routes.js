@@ -11,8 +11,8 @@ const Routes = () => {
       <Switch>
         <Route path="/" exact component={App} />
         <Route path="/create" exact component={Create} />
-        <Route path="/post/:slug" exact component={SinglePost} />
-        <Route path="/post/update/:slug" exact component={UpdatePost} />
+        <Route path="/post/:id" exact component={SinglePost} />
+        <Route path="/post/update/:id" exact component={UpdatePost} />
       </Switch>
     </BrowserRouter>
   );
