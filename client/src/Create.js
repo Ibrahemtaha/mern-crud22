@@ -21,7 +21,6 @@ function Create({ history }) {
 
   const handleSubmit = async event => {
     event.preventDefault();
-
     try {
       const response = await axios.post(`http://localhost:3000/api/post`, {
         title,
