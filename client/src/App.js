@@ -16,16 +16,16 @@ const App = () => {
         } catch (error) {
             console.log(error);
         }
-        axios
-            .get(`http://localhost:3000/api/posts`)
-            .then(response => {
-                console.log(response);
-                setPosts(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-                alert(error.response);
-            });
+        // axios
+        //     .get(`http://localhost:3000/api/posts`)
+        //     .then(response => {
+        //         console.log(response);
+        //         setPosts(response.data);
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //         alert(error.response);
+        //     });
     };
 
     useEffect(() => {
