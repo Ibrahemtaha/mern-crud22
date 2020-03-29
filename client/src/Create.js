@@ -19,24 +19,21 @@ function Create({ history }) {
     setState({ ...state, [name]: event.target.value });
   };
 
-  const handleSubmit = event => {
+  const handleSubmit = async event => {
     event.preventDefault();
-    // console.table({ title, user, content });
-    axios
-      .post(`http://localhost:3000/api/post`, { title, user, content })
-      .then(response => {
-        console.log(response);
-        // empty state
-        setState({ ...state, title: "", user: "", content: "" });
 
-        // show sucess alert
-        //alert(`Post titled ${response.data.title} is created`);
-        history.push("/");
-      })
-      .catch(error => {
-        console.log(error);
-        alert(error.response);
+    try {
+      const response = await axios.post(`http://localhost:3000/api/post`, {
+        title,
+        user,
+        content
       });
+
+      setState({ ...state, title: "", user: "", content: "" });
+      history.push("/");
+    } catch (error) {
+      alert(error);
+    }
   };
 
   return (

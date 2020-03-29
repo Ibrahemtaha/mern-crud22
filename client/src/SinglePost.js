@@ -5,12 +5,22 @@ import Nav from "./Nav";
 const SinglePost = props => {
   const [post, setPost] = useState("");
 
+  const fetchPost = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/post/${props.match.params.id}`
+      );
+      console.log(response);
+      setPost(response.data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/api/post/${props.match.params.id}`)
-      .then(response => setPost(response.data))
-      .catch(error => alert(`Error loading signle post ${error}`));
+    fetchPost();
   }, []);
+
   // return <div>{JSON.stringify(props)}</div>;
 
   return (
